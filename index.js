@@ -39,11 +39,35 @@ class Airplane {
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
-
+// class Person {
+//   constructor(name, age){
+//     this.name =name;
+//     this.age = age;
+//     this.stomach = [];
+//   }
 class Person {
-
+  constructor(attrs){
+    this.name = attrs.name;
+    this.age = attrs.age;
+    this.stomach = [];
+  }
+  eat(edible){
+    if (this.stomach.length < 10) {
+      this.stomach.push(edible);
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
 }
-
+const personOne = new Person({name:"Bradley", age: 32})
+personOne.eat("pizza")
+console.log(personOne.toString(),personOne.stomach)
+personOne.poop()
+console.log(personOne.toString(),personOne.stomach)
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
