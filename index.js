@@ -38,7 +38,10 @@ class Airplane {
         + When an instance poops, its `stomach` should empty.
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
-*/
+*/ 
+// I forogot to make my branch and am doing so now. hope this wont screw anything up
+
+
 // class Person {
 //   constructor(name, age){
 //     this.name =name;
