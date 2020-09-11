@@ -119,8 +119,8 @@ class Car {
   // need help with figuring out how to stop gas tank from going negative and how to log the miles it gets to zero at.
 }
 const carOne = new Car({ model: "Wrangler", milesPerGallon: 18 });
-carOne.fill(24);
-carOne.drive(200);
+carOne.fill(12);
+carOne.drive(50);
 
 /*
   TASK 3
