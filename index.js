@@ -92,17 +92,22 @@ class Car {
     this.tank = 0;
     this.odometer = 0;
   }
-  fill(){function(gallons) {
-    this.tank = this.tank + gallons;}}
+  fill(gallons) {
+    this.tank = this.tank + gallons;}
   drive(miles){
-    this.odometer= this.odometer + miles
-    if(miles <= this.milesPerGallon){ this.tank = this.tank - 1}
-
+    let travelGallons = Math.round(miles/this.milesPerGallon);
+    if(this.tank - travelGallons <= 0){
+    this.odometer= this.odometer + miles;
+    console.log(`I ran out of fuel at ${this.odometer}`)}
+    else if (this.tank - travelGallons >= 0)
+    {this.odometer=this.odometer + miles
+     this.tank= this.tank - travelGallons}
+      }
     }
-  }
-
-}
-
+const carOne = new Car ({model:'Wrangler', milesPerGallon: 18})
+carOne.fill(27)
+carOne.drive(1000)
+console.log(carOne.odometer, carOne.tank)
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -116,9 +121,17 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor (attrs){
+    this.name = attrs.name;
+    this.age = attrs.age;
+    this.location= attrs.location;
+  }
+  speak(){
+    return`Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
-
+const generalOne= new Lambdasian ({name:"Sarah", age: 27, location: "WA"})
+console.log(generalOne.speak())
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
