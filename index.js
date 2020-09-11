@@ -98,7 +98,9 @@ class Car {
     let travelGallons = Math.round(miles/this.milesPerGallon);
     if(this.tank - travelGallons <= 0){
     this.odometer= this.odometer + miles;
-    console.log(`I ran out of fuel at ${this.odometer}`)}
+    this.tank = 0;
+    console.log(`I ran out of fuel at ${this.odometer}`)
+  }
     else if (this.tank - travelGallons >= 0)
     {this.odometer=this.odometer + miles
      this.tank= this.tank - travelGallons}
