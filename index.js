@@ -86,6 +86,20 @@ console.log(personOne.toString(),personOne.stomach)
 */
 
 class Car {
+  constructor(attrs){
+    this.model = attrs.model;
+    this.milesPerGallon = attrs.milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(){function(gallons) {
+    this.tank = this.tank + gallons;}}
+  drive(miles){
+    this.odometer= this.odometer + miles
+    if(miles <= this.milesPerGallon){ this.tank = this.tank - 1}
+
+    }
+  }
 
 }
 
