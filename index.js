@@ -95,19 +95,32 @@ class Car {
     this.tank = this.tank + gallons;
   }
   drive(distance) {
-    let travelGallons = distance / this.milesPerGallon;
-    if (this.tank - travelGallons <= 0) {
-      this.odometer = this.odometer + distance;
+    this.odometer = this.odometer + distance;
+    if (this.tank - distance / this.milesPerGallon > 0) {
+      this.odometer += distance;
+      this.tank = this.tank - distance / this.milesPerGallon;
+    } else {
+      this.odometer += distance * this.milesPerGallon;
       this.tank = 0;
-      console.log(`I ran out of fuel at ${this.odometer} miles`);
-    } else if (this.tank - travelGallons >= 0) {
-      this.odometer = this.odometer + distance;
-      this.tank = this.tank - travelGallons;
+      return `I ran out of fuel at ${this.odometer} miles!`;
     }
   }
+  // drive(distance) {
+  //   let travelGallons = distance / this.milesPerGallon;
+  //   if (this.tank - travelGallons <= 0) {
+  //     this.odometer = this.odometer + distance;
+  //     this.tank = 0;
+  //     console.log(`I ran out of fuel at ${this.odometer} miles`);
+  //   } else if (this.tank - travelGallons >= 0) {
+  //     this.odometer = this.odometer + distance;
+  //     this.tank = this.tank - travelGallons;
+  //   }
+  // }
   // need help with figuring out how to stop gas tank from going negative and how to log the miles it gets to zero at.
 }
 const carOne = new Car({ model: "Wrangler", milesPerGallon: 18 });
+carOne.fill(24);
+carOne.drive(200);
 
 /*
   TASK 3
@@ -149,8 +162,7 @@ console.log(generalOne.speak());
 */
 class Instructor extends Lambdasian {
   constructor({ name, age, location, specialty, favLanguage, catchPhrase }) {
-    super(name, age, location);
-    // why am i getting redline?
+    super({ name, age, location });
     this.specialty = specialty;
     this.favLanguage = favLanguage;
     this.catchPhrase = catchPhrase;
@@ -163,7 +175,7 @@ class Instructor extends Lambdasian {
   }
 }
 const generalTwo = new Instructor({
-  name: "Johanna",
+  name: "Luis",
   age: 27,
   location: "Denver",
   specialty: "Great at JavaScript Classes",
@@ -192,8 +204,44 @@ console.log(generalTwo.speak(), generalTwo.demo("CSS"), generalTwo.catchPhrase);
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student extends Lambdasian {}
-
+class Student extends Lambdasian {
+  constructor({
+    name,
+    age,
+    location,
+    previousBackground,
+    className,
+    favSubjects,
+  }) {
+    super({ name, age, location });
+    this.previousBackground = previousBackground;
+    this.className = className;
+    this.subjects = [];
+    if (favSubjects.length > 0) {
+      this.subjects = favSubjects.map((s) => s);
+    }
+  }
+  listSubjects() {
+    return `Loving ${this.subjects.forEach}`;
+  }
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on  ${subject}`;
+  }
+}
+const generalThree = new Student({
+  name: "Barb",
+  age: 27,
+  location: "NH",
+  previousBackground: "Office Admin",
+  className: "WebPT22",
+  favSubjects: ["JS", "Node", "Redux"],
+});
+generalThree.listSubjects;
+generalThree.PRAssignment;
+generalThree.sprintChallenge;
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
