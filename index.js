@@ -38,9 +38,8 @@ class Airplane {
         + When an instance poops, its `stomach` should empty.
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
-*/ 
+*/
 // I forogot to make my branch and am doing so now. hope this wont screw anything up
-
 
 // class Person {
 //   constructor(name, age){
@@ -49,28 +48,28 @@ class Airplane {
 //     this.stomach = [];
 //   }
 class Person {
-  constructor(attrs){
-    this.name = attrs.name;
-    this.age = attrs.age;
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
     this.stomach = [];
   }
-  eat(edible){
+  eat(edible) {
     if (this.stomach.length < 10) {
       this.stomach.push(edible);
     }
   }
-  poop(){
+  poop() {
     this.stomach = [];
   }
-  toString(){
+  toString() {
     return `${this.name}, ${this.age}`;
   }
 }
-const personOne = new Person({name:"Bradley", age: 32})
-personOne.eat("pizza")
-console.log(personOne.toString(),personOne.stomach)
-personOne.poop()
-console.log(personOne.toString(),personOne.stomach)
+const personOne = new Person({ name: "Bradley", age: 32 });
+personOne.eat("pizza");
+console.log(personOne.toString(), personOne.stomach);
+personOne.poop();
+console.log(personOne.toString(), personOne.stomach);
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -86,30 +85,30 @@ console.log(personOne.toString(),personOne.stomach)
 */
 
 class Car {
-  constructor(attrs){
-    this.model = attrs.model;
-    this.milesPerGallon = attrs.milesPerGallon;
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
     this.tank = 0;
     this.odometer = 0;
   }
   fill(gallons) {
-    this.tank = this.tank + gallons;}
-  drive(miles){
-    let travelGallons = Math.round(miles/this.milesPerGallon);
-    if(this.tank - travelGallons <= 0){
-    this.odometer= this.odometer + miles;
-    this.tank = 0;
-    console.log(`I ran out of fuel at ${this.odometer}`)
+    this.tank = this.tank + gallons;
   }
-    else if (this.tank - travelGallons >= 0)
-    {this.odometer=this.odometer + miles
-     this.tank= this.tank - travelGallons}
-      }
+  drive(distance) {
+    let travelGallons = distance / this.milesPerGallon;
+    if (this.tank - travelGallons <= 0) {
+      this.odometer = this.odometer + distance;
+      this.tank = 0;
+      console.log(`I ran out of fuel at ${this.odometer} miles`);
+    } else if (this.tank - travelGallons >= 0) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - travelGallons;
     }
-const carOne = new Car ({model:'Wrangler', milesPerGallon: 18})
-carOne.fill(27)
-carOne.drive(1000)
-console.log(carOne.odometer, carOne.tank)
+  }
+  // need help with figuring out how to stop gas tank from going negative and how to log the miles it gets to zero at.
+}
+const carOne = new Car({ model: "Wrangler", milesPerGallon: 18 });
+
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -123,17 +122,17 @@ console.log(carOne.odometer, carOne.tank)
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  constructor (attrs){
-    this.name = attrs.name;
-    this.age = attrs.age;
-    this.location= attrs.location;
+  constructor({ name, age, location }) {
+    this.name = name;
+    this.age = age;
+    this.location = location;
   }
-  speak(){
-    return`Hello my name is ${this.name}, I am from ${this.location}`
+  speak() {
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
   }
 }
-const generalOne= new Lambdasian ({name:"Sarah", age: 27, location: "WA"})
-console.log(generalOne.speak())
+const generalOne = new Lambdasian({ name: "Sarah", age: 27, location: "WA" });
+console.log(generalOne.speak());
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -148,11 +147,37 @@ console.log(generalOne.speak())
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor({ name, age, location, specialty, favLanguage, catchPhrase }) {
+    super(name, age, location);
+    // why am i getting redline?
+    this.specialty = specialty;
+    this.favLanguage = favLanguage;
+    this.catchPhrase = catchPhrase;
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject) {
+    return `${student.name} receives a perfect score on ${subject}`;
+  }
 }
-
+const generalTwo = new Instructor({
+  name: "Johanna",
+  age: 27,
+  location: "Denver",
+  specialty: "Great at JavaScript Classes",
+  favLanguage: "JavaScript",
+  catchPhrase: "Its Fine",
+});
+console.log(generalTwo.speak(), generalTwo.demo("CSS"), generalTwo.catchPhrase);
+//  need help with speak inheritance
 /*
+
+
+
+
+
   TASK 5
     - Write a Student class extending Lambdasian.
     - Its constructor takes a single argument -  an object with the following keys:
@@ -167,9 +192,7 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
-}
+class Student extends Lambdasian {}
 
 /*
   TASK 6
@@ -184,9 +207,7 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
-}
+class ProjectManager {}
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -200,13 +221,27 @@ class ProjectManager {
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Lambdasian) { module.exports.Lambdasian = Lambdasian }
-  if (Instructor) { module.exports.Instructor = Instructor }
-  if (Student) { module.exports.Student = Student }
-  if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
+if (typeof exports !== "undefined") {
+  module.exports = module.exports || {};
+  if (Airplane) {
+    module.exports.Airplane = Airplane;
+  }
+  if (Person) {
+    module.exports.Person = Person;
+  }
+  if (Car) {
+    module.exports.Car = Car;
+  }
+  if (Lambdasian) {
+    module.exports.Lambdasian = Lambdasian;
+  }
+  if (Instructor) {
+    module.exports.Instructor = Instructor;
+  }
+  if (Student) {
+    module.exports.Student = Student;
+  }
+  if (ProjectManager) {
+    module.exports.ProjectManager = ProjectManager;
+  }
 }
