@@ -144,8 +144,12 @@ class Lambdasian {
     return `Hello my name is ${this.name}, I am from ${this.location}`;
   }
 }
-const generalOne = new Lambdasian({ name: "Sarah", age: 27, location: "WA" });
-console.log(generalOne.speak());
+const lambdasianOne = new Lambdasian({
+  name: "Sarah",
+  age: 27,
+  location: "WA",
+});
+console.log(lambdasianOne.speak());
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -174,7 +178,7 @@ class Instructor extends Lambdasian {
     return `${student.name} receives a perfect score on ${subject}`;
   }
 }
-const generalTwo = new Instructor({
+const instructorOne = new Instructor({
   name: "Luis",
   age: 27,
   location: "Denver",
@@ -182,7 +186,11 @@ const generalTwo = new Instructor({
   favLanguage: "JavaScript",
   catchPhrase: "Its Fine",
 });
-console.log(generalTwo.speak(), generalTwo.demo("CSS"), generalTwo.catchPhrase);
+console.log(
+  instructorOne.speak(),
+  instructorOne.demo("CSS"),
+  instructorOne.catchPhrase
+);
 //  need help with speak inheritance
 /*
 
@@ -231,7 +239,7 @@ class Student extends Lambdasian {
     return `${this.name} has begun sprint challenge on  ${subject}`;
   }
 }
-const generalThree = new Student({
+const studentOne = new Student({
   name: "Barb",
   age: 27,
   location: "NH",
@@ -239,9 +247,9 @@ const generalThree = new Student({
   className: "WebPT22",
   favSubjects: ["JS", "Node", "Redux"],
 });
-generalThree.listSubjects;
-generalThree.PRAssignment;
-generalThree.sprintChallenge;
+studentOne.listSubjects;
+studentOne.PRAssignment;
+studentOne.sprintChallenge;
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -255,8 +263,38 @@ generalThree.sprintChallenge;
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {}
-
+class ProjectManager extends Instructor {
+  constructor({
+    name,
+    age,
+    location,
+    specialty,
+    favLanguage,
+    catchPhrase,
+    gradClassName,
+    favInstructor,
+  }) {
+    super({ name, age, location, specialty, favLanguage, catchPhrase });
+    this.gradClassName = gradClassName;
+    this.favInstructor = favInstructor;
+  }
+  standUp(slackChannel) {
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  }
+  debugCode(student, subject) {
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
+}
+const pmOne= new ProjectManager ({name:"Josh",
+  age: 33,
+  location: "LA",
+  specialty:"HTML",
+  favLanguage:"CSS",
+  catchPhrase:"Git er done",
+  gradClassName:"CS1",
+  favInstructor:"Sean",})
+pmOne.standUp("CS1")
+pmOne.debugCode(studentOne,"HTML")
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
